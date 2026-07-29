@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>OT Calculator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+
+<title>OT Calculator</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
+
 <div class="container">
+
 
 <h2>OT Calculator</h2>
 
-<label>Basic Salary</label>
-<input id="salary" type="number" placeholder="Enter Salary">
+
+<label>Date</label>
+
+<input type="date" id="date">
 
 
-<label>Monthly Working Hour</label>
-<input id="workingHour" type="number" value="188.31">
+
+<label>Out Time</label>
+
+<input type="time" id="outTime">
 
 
-<label>OT Start Time</label>
-<input id="startTime" type="time">
+
+<button onclick="saveOT()">
+Save OT
+</button>
 
 
-<label>OT End Time</label>
-<input id="endTime" type="time">
+
+<h3>OT History</h3>
 
 
-<button onclick="calculateOT()">Calculate</button>
+<div id="history"></div>
 
 
-<div class="result">
 
-<p>OT Hour:
-<span id="otHour">0</span>
-</p>
+<div class="totalBox">
 
+Total OT:
 
-<p>OT Rate:
-<span id="otRate">0</span> টাকা
-</p>
+<span id="totalHour">
+0.00
+</span>
 
-
-<p>Total OT Amount:
-<span id="total">0</span> টাকা
-</p>
+Hour
 
 </div>
+
 
 
 </div>
@@ -55,5 +65,7 @@
 
 <script src="script.js"></script>
 
+
 </body>
+
 </html>
