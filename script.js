@@ -1,69 +1,135 @@
-function calculateOT(){
+body{
 
+font-family:Arial, sans-serif;
 
-let salary =
-Number(document.getElementById("salary").value);
+background:#f2f2f2;
 
-
-let workingHour =
-Number(document.getElementById("workingHour").value);
-
-
-let start =
-document.getElementById("startTime").value;
-
-
-let end =
-document.getElementById("endTime").value;
-
-
-
-let startMinutes =
-Number(start.split(":")[0])*60 +
-Number(start.split(":")[1]);
-
-
-let endMinutes =
-Number(end.split(":")[0])*60 +
-Number(end.split(":")[1]);
-
-
-
-if(endMinutes < startMinutes){
-
-    endMinutes += 1440;
+margin:0;
 
 }
 
 
-let minutes =
-endMinutes - startMinutes;
+
+.container{
+
+width:90%;
+
+max-width:450px;
+
+margin:30px auto;
+
+background:white;
+
+padding:20px;
+
+border-radius:10px;
+
+box-shadow:0 0 10px #ccc;
+
+}
 
 
-let otHour =
-minutes / 60;
+
+h2{
+
+text-align:center;
+
+color:#0066cc;
+
+}
 
 
 
-let otRate =
-salary / workingHour;
+label{
+
+display:block;
+
+margin-top:15px;
+
+font-weight:bold;
+
+}
 
 
-let total =
-otHour * otRate;
+
+input{
+
+width:100%;
+
+padding:12px;
+
+margin-top:5px;
+
+box-sizing:border-box;
+
+border:1px solid #ccc;
+
+border-radius:5px;
+
+}
 
 
 
-document.getElementById("otHour").innerHTML =
-otHour.toFixed(2);
+button{
+
+width:100%;
+
+padding:12px;
+
+margin-top:15px;
+
+background:#0066cc;
+
+color:white;
+
+border:none;
+
+border-radius:5px;
+
+font-size:16px;
+
+}
 
 
-document.getElementById("otRate").innerHTML =
-otRate.toFixed(2);
+
+.historyBox{
+
+background:#eeeeee;
+
+padding:12px;
+
+margin-top:10px;
+
+border-radius:5px;
+
+cursor:pointer;
+
+}
 
 
-document.getElementById("total").innerHTML =
-total.toFixed(2);
 
+.historyBox:hover{
+
+background:#dddddd;
+
+}
+
+
+
+.totalBox{
+
+margin-top:20px;
+
+background:#d9f7d9;
+
+padding:15px;
+
+border-radius:5px;
+
+font-size:18px;
+
+font-weight:bold;
+
+text-align:center;
 
 }
