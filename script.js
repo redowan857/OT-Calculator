@@ -1,135 +1,290 @@
-body{
+let otList = JSON.parse(localStorage.getItem("otList")) || [];
 
-font-family:Arial, sans-serif;
-
-background:#f2f2f2;
-
-margin:0;
-
-}
+let editIndex = -1;
 
 
 
-.container{
+function saveOT(){
 
-width:90%;
 
-max-width:450px;
+let date =
+document.getElementById("date").value;
 
-margin:30px auto;
 
-background:white;
+let outTime =
+document.getElementById("outTime").value;
 
-padding:20px;
 
-border-radius:10px;
 
-box-shadow:0 0 10px #ccc;
+if(date==""){
+
+alert("Select Date");
+
+return;
 
 }
 
 
 
-h2{
+if(outTime==""){
 
-text-align:center;
+alert("Select Out Time");
 
-color:#0066cc;
-
-}
-
-
-
-label{
-
-display:block;
-
-margin-top:15px;
-
-font-weight:bold;
+return;
 
 }
 
 
 
-input{
+// OT start 05:00 PM
 
-width:100%;
-
-padding:12px;
-
-margin-top:5px;
-
-box-sizing:border-box;
-
-border:1px solid #ccc;
-
-border-radius:5px;
-
-}
+let start = 17 * 60;
 
 
 
-button{
+let time = outTime.split(":");
 
-width:100%;
 
-padding:12px;
 
-margin-top:15px;
+let outMinute =
+(Number(time[0])*60) + Number(time[1]);
 
-background:#0066cc;
 
-color:white;
 
-border:none;
+let difference =
+outMinute - start;
 
-border-radius:5px;
 
-font-size:16px;
+
+if(difference < 0){
+
+difference = 0;
 
 }
 
 
 
-.historyBox{
+let hour =
+difference / 60;
 
-background:#eeeeee;
 
-padding:12px;
 
-margin-top:10px;
+let data = {
 
-border-radius:5px;
+date:date,
 
-cursor:pointer;
+out:outTime,
+
+hour:hour
+
+};
+
+
+
+
+if(editIndex == -1){
+
+otList.push(data);
+
+}
+
+else{
+
+otList[editIndex] = data;
+
+editIndex = -1;
 
 }
 
 
 
-.historyBox:hover{
 
-background:#dddddd;
+localStorage.setItem(
+
+"otList",
+
+JSON.stringify(otList)
+
+);
+
+
+
+clearInput();
+
+showHistory();
+
+
+}
+
+
+
+
+
+function showHistory(){
+
+
+let html="";
+
+let total=0;
+
+
+
+// Date small to big
+
+otList.sort(function(a,b){
+
+return new Date(a.date)-new Date(b.date);
+
+});
+
+
+
+
+
+otList.forEach(function(item,index){
+
+
+
+let d = new Date(item.date);
+
+
+
+let day =
+String(d.getDate()).padStart(2,"0");
+
+
+
+let month =
+String(d.getMonth()+1).padStart(2,"0");
+
+
+
+let year =
+d.getFullYear();
+
+
+
+let displayDate =
+day+"-"+month+"-"+year;
+
+
+
+
+// শুধু Friday show
+
+let dayName="";
+
+
+
+if(d.getDay()==5){
+
+dayName=" (Friday)";
 
 }
 
 
 
-.totalBox{
 
-margin-top:20px;
+html += `
 
-background:#d9f7d9;
+<div class="historyBox"
+onclick="editOT(${index})">
 
-padding:15px;
 
-border-radius:5px;
+${displayDate}
 
-font-size:18px;
+|
 
-font-weight:bold;
+${item.out}
 
-text-align:center;
+|
+
+${item.hour.toFixed(2)} Hour
+
+${dayName}
+
+
+</div>
+
+`;
+
+
+
+total += item.hour;
+
+
+
+});
+
+
+
+
+document.getElementById("history").innerHTML =
+html;
+
+
+
+document.getElementById("totalHour").innerHTML =
+total.toFixed(2);
+
+
 
 }
+
+
+
+
+
+function editOT(index){
+
+
+
+let data = otList[index];
+
+
+
+document.getElementById("date").value =
+data.date;
+
+
+
+document.getElementById("outTime").value =
+data.out;
+
+
+
+editIndex=index;
+
+
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+
+}
+
+
+
+
+
+function clearInput(){
+
+
+document.getElementById("date").value="";
+
+
+document.getElementById("outTime").value="";
+
+
+}
+
+
+
+
+
+showHistory();
